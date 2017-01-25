@@ -1,0 +1,54 @@
+package com.yiqiang.repository.javase.thread.executorpool.chapter11;
+
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Title:
+ * Description:
+ * This class implements a task executed in this example. It only waits
+ * a random perior of time
+ * Create Time: 2017/1/20 0020 2:28
+ *
+ * @author: YEEQiang
+ * @version: 1.0
+ */
+public class Task implements Runnable{
+
+    /**
+     * Name of the task
+     */
+    private String name;
+
+    /**
+     * Constructor of the class. It initializes the attributes of the class
+     * @param name The name of the task
+     */
+    public Task(String name){
+        this.name=name;
+    }
+
+    /**
+     * Main method of the task. Waits a random period of time
+     */
+    @Override
+    public void run() {
+        System.out.printf("Task %s: Starting\n",name);
+        try {
+            Long duration=(long)(Math.random()*10);
+            System.out.printf("Task %s: ReportGenerator: Generating a report during %d seconds\n",name,duration);
+            TimeUnit.SECONDS.sleep(duration);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.printf("Task %s: Ending\n",name);
+    }
+
+    /**
+     * Returns the name of the task
+     */
+    public String toString() {
+        return name;
+    }
+
+}
+

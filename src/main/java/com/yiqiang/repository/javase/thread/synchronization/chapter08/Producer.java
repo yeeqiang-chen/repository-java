@@ -1,0 +1,51 @@
+package com.yiqiang.repository.javase.thread.synchronization.chapter08;
+
+import com.yiqiang.repository.javase.thread.synchronization.chapter08.util.FileMock;
+
+/**
+ * Title:
+ * Description:
+ * This class gets lines from the simulate file and stores them in the
+ * buffer, if there is space in it.
+ * Create Time: 2017/1/17 0017 1:06
+ *
+ * @author: YEEQiang
+ * @version: 1.0
+ */
+public class Producer implements Runnable {
+
+    /**
+     * Simulated File
+     */
+    private FileMock mock;
+
+    /**
+     * Buffer
+     */
+    private Buffer buffer;
+
+    /**
+     * Constructor of the class. Initialize the objects
+     * @param mock Simulated file
+     * @param buffer Buffer
+     */
+    public Producer (FileMock mock, Buffer buffer){
+        this.mock=mock;
+        this.buffer=buffer;
+    }
+
+    /**
+     * Core method of the producer. While are pending lines in the
+     * simulated file, reads one and try to store it in the buffer.
+     */
+    @Override
+    public void run() {
+        buffer.setPendingLines(true);
+        while (mock.hasMoreLines()){
+            String line=mock.getLine();
+            buffer.insert(line);
+        }
+        buffer.setPendingLines(false);
+    }
+
+}
